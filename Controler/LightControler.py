@@ -1,15 +1,21 @@
 class LightCrontroler:
-    def __init__(self, view):
+    def __init__(self, view, model):
         self.__view = view
+        self.__model = model
 
     def led_dg_on(self):
-        print("led droite/gauche on")
+        self.__model.led_dg_state = True
+        self.__view.update()
 
     def led_dg_off(self):
-        print("led droite/gauche off")
+        self.__model.led_dg_state = False
+        self.__view.update()
+
 
     def led_milieu_on(self):
-        print("led milieu on")
+        self.__model.led_milieu_state = True
+        self.__view.update()
 
     def led_milieu_off(self):
-        print("led milieu off")
+        self.__model.led_milieu_state = False
+        self.__view.update()

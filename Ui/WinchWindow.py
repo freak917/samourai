@@ -8,10 +8,11 @@ from Ui.ToplevelModal import ToplevelModal
 
 
 class WinchWindow(ToplevelModal):
-    def __init__(self, parent):
+    def __init__(self, parent, model):
         super().__init__(parent, title="Treuil")
 
-        self.__controler = WinchCrontroler(self)
+        self.__model = model
+        self.__controler = WinchCrontroler(self, model)
 
         label = Label(self, text="Activer : ")
         label.grid(row=1, column=1)
@@ -21,11 +22,11 @@ class WinchWindow(ToplevelModal):
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(2, weight=1)
 
-        button = ToggleButton(self)
-        button.grid(row=1, column=2)
+        self.__enable_button = ToggleButton(self, state=model.state)
+        self.__enable_button.grid(row=1, column=2)
 
-        button.set_on_callback(self.__controler.winch_enable)
-        button.set_off_callback(self.__controler.winch_disable)
+        self.__enable_button.set_on_callback(self.__controler.winch_enable)
+        self.__enable_button.set_off_callback(self.__controler.winch_disable)
 
         self.__up_button = self.__build_up_button()
         self.__up_button.grid(row=3, column=1)
@@ -33,7 +34,7 @@ class WinchWindow(ToplevelModal):
         self.__down_button = self.__build_down_button()
         self.__down_button.grid(row=3, column=2)
 
-        self.disable()
+        self.update()
 
     def __build_up_button(self):
         photo = PhotoImage(file="Images/caret-square-o-up.png")
@@ -55,13 +56,14 @@ class WinchWindow(ToplevelModal):
 
         return down_button
 
-    def enable(self):
-        self.__up_button.config(state=NORMAL)
-        self.__down_button.config(state=NORMAL)
+    def update(self):
+        if self.__model.state == True:
+            self.__up_button.config(state=NORMAL)
+            self.__down_button.config(state=NORMAL)
+        else:
+            self.__up_button.config(state=DISABLED)
+            self.__down_button.config(state=DISABLED)
 
-    def disable(self):
-        self.__up_button.config(state=DISABLED)
-        self.__down_button.config(state=DISABLED)
 
 if __name__ == "__main__":
     root = Tk()

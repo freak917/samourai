@@ -2,7 +2,7 @@ from tkinter import *
 
 
 class ToggleButton(Button):
-    def __init__(self, parent, width=256, height=256):
+    def __init__(self, parent, width=256, height=256, state=False):
         super().__init__(parent, relief=FLAT)
 
         self.__on_func = None
@@ -10,10 +10,13 @@ class ToggleButton(Button):
 
         self.__toggle_on_img = PhotoImage(file="Images/toggle-on.png")
         self.__toggle_off_img = PhotoImage(file="Images/toggle-off.png")
-        self.config(image=self.__toggle_off_img, command=self.__toggle)
+        if state == False:
+            self.config(image=self.__toggle_off_img, command=self.__toggle)
+        else:
+            self.config(image=self.__toggle_on_img, command=self.__toggle)
 
         parent.bind('<Button-1>', self.__keep_flat)  # bind the application to left mouse click
-        self.__state = False
+        self.__state = state
 
     def set_on_callback(self, fn):
         self.__on_func = fn

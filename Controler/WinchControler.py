@@ -1,14 +1,15 @@
 class WinchCrontroler:
-    def __init__(self, view):
+    def __init__(self, view, model):
         self.__view = view
+        self.__model = model
 
     def winch_enable(self):
-        print("treuil activer")
-        self.__view.enable()
+        self.__model.state = True
+        self.__view.update()
 
     def winch_disable(self):
-        print("treuil desactiver")
-        self.__view.disable()
+        self.__model.state = False
+        self.__view.update()
 
     def on_up_winch_press(self, *event):
         print("up press")

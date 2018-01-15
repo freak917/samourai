@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter.ttk import *
 
 from Controler.MainControler import MainCrontroler
+from Model.LightModel import LightModel
+from Model.WinchModel import WinchModel
 from Ui.LightWindow import LightWindow
 from Ui.WinchWindow import WinchWindow
 from Ui.Window import Window as UiWindow
@@ -12,6 +14,8 @@ class MainWindow(UiWindow):
         super().__init__(title, width, height)
 
         self.__controler = MainCrontroler(self)
+        self.__winch_model = WinchModel()
+        self.__light_model = LightModel()
         self.__winch_window = None
         self.__light_window = None
 
@@ -57,17 +61,14 @@ class MainWindow(UiWindow):
         return light_button
 
     def open_winch_win(self):
-        self.__winch_window = WinchWindow(self)
+        self.__winch_window = WinchWindow(self, self.__winch_model)
 
     def open_light_win(self):
-        self.__light_window = LightWindow(self)
+        self.__light_window = LightWindow(self, self.__light_model)
 
     def controler(self):
         return self.__controler
 
-    def winch_window(self):
-        # TODO
-        return self.__winch_window
 
 
 if __name__ == '__main__':
