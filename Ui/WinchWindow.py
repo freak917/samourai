@@ -19,11 +19,17 @@ class WinchWindow(ToplevelModal):
 
         button = ToggleButton(self)
         button.grid(row=1, column=2)
-        up_button = self.__build_up_button()
-        up_button.grid(row=3, column=1)
 
-        down_button = self.__build_down_button()
-        down_button.grid(row=3, column=2)
+        button.set_on_callback(self._parent.controler().winch_enable)
+        button.set_off_callback(self._parent.controler().winch_disable)
+
+        self.__up_button = self.__build_up_button()
+        self.__up_button.grid(row=3, column=1)
+
+        self.__down_button = self.__build_down_button()
+        self.__down_button.grid(row=3, column=2)
+
+        self.disable()
 
     def __build_up_button(self):
         photo = PhotoImage(file="Images/caret-square-o-up.png")
@@ -45,6 +51,13 @@ class WinchWindow(ToplevelModal):
 
         return down_button
 
+    def enable(self):
+        self.__up_button.config(state=NORMAL)
+        self.__down_button.config(state=NORMAL)
+
+    def disable(self):
+        self.__up_button.config(state=DISABLED)
+        self.__down_button.config(state=DISABLED)
 
 if __name__ == "__main__":
     root = Tk()

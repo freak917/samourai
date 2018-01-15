@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.ttk import *
 
 from Controler.MainControler import MainCrontroler
+from Ui.LightWindow import LightWindow
 from Ui.WinchWindow import WinchWindow
 from Ui.Window import Window as UiWindow
 
@@ -11,6 +12,9 @@ class MainWindow(UiWindow):
         super().__init__(title, width, height)
 
         self.__controler = MainCrontroler(self)
+        self.__winch_window = None
+        self.__light_window = None
+
         w, h = self.winfo_screenwidth(), self.winfo_screenheight()
         self.geometry("%dx%d+0+0" % (w, h))
 
@@ -47,16 +51,23 @@ class MainWindow(UiWindow):
         photo = PhotoImage(file="Images/lightbulb-o.png")
         photo = photo.subsample(int(256 / 32), int(256 / 32))
         light_button = Button(self, image=photo, text="Eclairage", compound=TOP,
-                              command=self.__controler.on_winch_button)
+                              command=self.__controler.on_light_button)
         light_button.image = photo
 
         return light_button
 
     def open_winch_win(self):
-        WinchWindow(self)
+        self.__winch_window = WinchWindow(self)
+
+    def open_light_win(self):
+        self.__light_window = LightWindow(self)
 
     def controler(self):
         return self.__controler
+
+    def winch_window(self):
+        # TODO
+        return self.__winch_window
 
 
 if __name__ == '__main__':
