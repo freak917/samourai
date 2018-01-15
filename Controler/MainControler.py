@@ -17,36 +17,4 @@ class MainCrontroler:
     def on_light_button(self, *event):
         self.__view.open_light_win()
 
-    def on_up_winch_press(self, *event):
-        print("up press")
 
-    def on_up_winch_release(self, *event):
-        print("up release")
-
-    def on_down_winch_press(self, *event):
-        print("down press")
-
-    def on_down_winch_release(self, *event):
-        print("down release")
-
-    def led_dg_on(self):
-        print("led droite/gauche on")
-
-    def led_dg_off(self):
-        print("led droite/gauche off")
-
-    def led_milieu_on(self):
-        print("led milieu on")
-
-    def led_milieu_off(self):
-        print("led milieu off")
-
-    def winch_enable(self):
-        print("treuil activer")
-        # TODO
-        self.__view.winch_window().enable()
-
-    def winch_disable(self):
-        print("treuil desactiver")
-        # TODO
-        self.__view.winch_window().disable()
