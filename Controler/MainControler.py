@@ -13,3 +13,16 @@ class MainCrontroler:
 
     def on_winch_button(self, *event):
         self.__view.open_winch_win()
+
+    def on_up_winch_press(self, *event):
+        print("up press")
+
+    def on_up_winch_release(self, *event):
+        print("up release")
+
+    def on_down_winch_press(self, *event):
+        # print("down press")
+        pass
+
+    def on_down_winch_release(self, *event):
+        print("down release")

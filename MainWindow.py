@@ -55,6 +55,9 @@ class MainWindow(UiWindow):
     def open_winch_win(self):
         WinchWindow(self)
 
+    def controler(self):
+        return self.__controler
+
 
 if __name__ == '__main__':
     window = MainWindow(title="Pull&Light", width=800, height=600)
